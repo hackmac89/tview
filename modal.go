@@ -95,6 +95,47 @@ func (m *Modal) SetText(text string) *Modal {
 	return m
 }
 
+// SetBorder sets the flag indicating whether or not the modal should have a
+// border.
+func (m *Modal) SetBorder(show bool) *Modal {
+	m.frame.border = show
+	return m
+}
+
+// SetBorderColor sets the modal's border color.
+func (m *Modal) SetBorderColor(color tcell.Color) *Modal {
+	m.frame.borderColor = color
+	return m
+}
+
+// SetBorderAttributes sets the modal's style attributes. You can combine
+// different attributes using bitmask operations:
+//
+//   modal.SetBorderAttributes(tcell.AttrUnderline | tcell.AttrBold)
+func (m *Modal) SetBorderAttributes(attr tcell.AttrMask) *Modal {
+	m.frame.borderAttributes = attr
+	return m
+}
+
+// SetTitle sets the modal's title.
+func (m *Modal) SetTitle(title string) *Modal {
+	m.frame.title = title
+	return m
+}
+
+// SetTitleColor sets the modal's title color.
+func (m *Modal) SetTitleColor(color tcell.Color) *Modal {
+	m.frame.titleColor = color
+	return m
+}
+
+// SetTitleAlign sets the alignment of the modal's title, one of AlignLeft, AlignCenter,
+// or AlignRight.
+func (m *Modal) SetTitleAlign(align int) *Modal {
+	m.frame.titleAlign = align
+	return m
+}
+
 // AddButtons adds buttons to the window. There must be at least one button and
 // a "done" handler so the window can be closed again.
 func (m *Modal) AddButtons(labels []string) *Modal {
