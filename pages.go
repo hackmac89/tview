@@ -48,6 +48,11 @@ func (p *Pages) SetChangedFunc(handler func()) *Pages {
 	return p
 }
 
+// GetPageCount returns the number of pages currently stored in this object.
+func (p *Pages) GetPageCount() int {
+	return len(p.pages)
+}
+
 // AddPage adds a new page with the given name and primitive. If there was
 // previously a page with the same name, it is overwritten. Leaving the name
 // empty may cause conflicts in other functions so always specify a non-empty
@@ -219,6 +224,17 @@ func (p *Pages) SendToBack(name string) *Pages {
 		p.Focus(p.setFocus)
 	}
 	return p
+}
+
+// GetFrontPage returns the front-most visible page. If there are no visible
+// pages, ("", nil) is returned.
+func (p *Pages) GetFrontPage() (name string, item Primitive) {
+	for index := len(p.pages) - 1; index >= 0; index-- {
+		if p.pages[index].Visible {
+			return p.pages[index].Name, p.pages[index].Item
+		}
+	}
+	return
 }
 
 // HasFocus returns whether or not this primitive has focus.
